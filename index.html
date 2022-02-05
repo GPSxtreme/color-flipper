@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
     <link rel="stylesheet" href="styles.css" />
     <title>color-flipper</title>
   </head>
@@ -11,14 +16,20 @@
     <!-- main begins here -->
     <div class="main">
       <div class="head">
-        <h1 class="head_text">the background color is:</h1>
-        <p id="colorName" class="codeDetails"></p>
+        <h1 class="head_text">The Color Flip</h1>
+        <div id="colorName" class="color_name"></div>
+        <div>Hex Code: <span id="hexCode" class="code_details"></span></div>
+        <div>RGB Code: <span id="rgbCode" class="code_details"></span></div>
+        <div>CMYK Code: <span id="cmykCode" class="code_details"></span></div>
+        <div>XYZ Code<span id="xyzCode" class="code_details"></span></div>
       </div>
-      <div class="buttons">
-        <button class="colorChanger" id="button">Flip color</button>
-        <button class="copyColor" id="button_copy">Copy code</button>
-      </div>
+
+      <button class="color_changer" id="button">Flip color</button>
     </div>
     <script src="./script.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
   </body>
 </html>
