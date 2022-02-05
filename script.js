@@ -5,6 +5,9 @@ const copyBtn = document.getElementById("button_copy");
 let color = "";
 let colorName = "";
 let colorHexCode = "";
+let rgbCode = "";
+let cmykCode = "";
+let xyzCode = "";
 
 //change color
 let changeColor = async () => {
@@ -15,15 +18,23 @@ let changeColor = async () => {
   //call the color api to get the color name and hex code
   let res = await fetch(`https://www.thecolorapi.com/id?rgb=${color}`);
   let body = await res.json();
+  console.log(body);
   console.log(body.hex.value, body.name.value);
 
-  // update colorName and colorHexCode
+  // update colorName,colorHexCode,rgb value
   colorName = body.name.value;
   colorHexCode = body.hex.value;
+  rgbCode = color;
+  cmykCode = body.cmyk.value;
+  xyzCode = body.XYZ.value;
 
   // update document with new color
   document.body.style.background = color;
-  colorCode.textContent = `${colorHexCode} [${colorName}]`;
+  colorCode.textContent = `
+  ●${colorHexCode} [${colorName}]
+  ●${rgbCode}
+  ●${cmykCode}
+  ●${xyzCode}`;
 };
 
 // call color change first time on refresh
