@@ -15,14 +15,22 @@ body {
   min-height: 100vh;
   align-items: center;
   flex-direction: column;
-  gap: 50px;
+  gap: 30px;
 }
 .head {
   display: flex;
+  flex-direction: column;
+  gap: 0px !important;
   background: #eee;
   padding: 20px 30px;
   border-radius: 8px;
-  border: 2px solid rgb(15, 0, 0);
+  max-width: 50%;
+  /* border: 2px solid rgb(15, 0, 0); */
+  box-shadow: 3.4px 3.4px 2.7px rgba(0, 0, 0, 0.031),
+    8.7px 8.7px 6.9px rgba(0, 0, 0, 0.044),
+    17.7px 17.7px 14.2px rgba(0, 0, 0, 0.056),
+    36.5px 36.5px 29.2px rgba(0, 0, 0, 0.069),
+    100px 100px 80px rgba(0, 0, 0, 0.1);
 }
 .head_text {
   font-variant-caps: all-petite-caps;
@@ -36,4 +44,24 @@ body {
   outline: none;
   padding: 18px 36px;
   border-radius: 6px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+}
+.codeDetails {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+}
+@media only screen and (max-width: 630px) {
+  /* code here */
+  .head {
+    max-width: 80%;
+  }
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
 }
