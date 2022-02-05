@@ -1,72 +1,78 @@
-* {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  box-sizing: border-box;
-}
-body {
-  padding: 0;
-  margin: 0;
-  background: linear-gradient(to right, #00aaff, #00aa);
-  transition: background-color 0.5s ease;
-}
-.main {
-  display: flex;
-  justify-content: center;
-  min-height: 100vh;
-  align-items: center;
-  flex-direction: column;
-  gap: 30px;
-}
-.head {
-  display: flex;
-  flex-direction: column;
-  gap: 0px !important;
-  background: #eee;
-  padding: 20px 30px;
-  border-radius: 8px;
-  width: min(90%, 500px);
-  box-shadow: 3.4px 3.4px 2.7px rgba(0, 0, 0, 0.031),
-    8.7px 8.7px 6.9px rgba(0, 0, 0, 0.044),
-    17.7px 17.7px 14.2px rgba(0, 0, 0, 0.056),
-    36.5px 36.5px 29.2px rgba(0, 0, 0, 0.069),
-    100px 100px 80px rgba(0, 0, 0, 0.1);
-}
-.head_text {
-  font-variant-caps: all-petite-caps;
-  text-align: center;
-}
-.color_changer {
-  display: block;
-  outline: none;
-  width: min(90%, 500px);
-  border: none;
-  background-color: #222;
-  color: #fff;
-  padding: 18px 36px;
-  border-radius: 6px;
-  font-weight: 600;
-  font-size: 15px;
-  cursor: pointer;
-}
-.color_changer:hover {
-  background-color: #111;
-}
-.code_details {
-  font-size: 20px;
-  font-weight: 600;
-  border-bottom: 1px dashed #ccc;
-  cursor: pointer;
-  color: #666;
-}
-.code_details:hover {
-  color: #000;
-}
-.color_name {
-  border: 2px dashed #555;
-  text-align: center;
-  padding: 15px;
-  background-color: #ccc;
-  border-radius: 6px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 20px;
-}
+const button = document.getElementById("button");
+const colorNameBox = document.getElementById("colorName");
+const hexCodeBox = document.getElementById("hexCode");
+const cmykCodeBox = document.getElementById("cmykCode");
+const rgbCodeBox = document.getElementById("rgbCode");
+const xyzCodeBox = document.getElementById("xyzCode");
+
+let color = "";
+let colorName = "";
+let colorHexCode = "";
+let rgbCode = "";
+let cmykCode = "";
+let xyzCode = "";
+
+//change color
+let changeColor = async () => {
+  // generate random color
+  let r = () => Math.floor(Math.random() * 255);
+  color = `rgb(${r()}, ${r()}, ${r()})`;
+
+  //call the color api to get the color name and hex code
+  let res = await fetch(`https://www.thecolorapi.com/id?rgb=${color}`);
+  let body = await res.json();
+  console.log(body);
+  console.log(body.hex.value, body.name.value);
+
+  // update colorName,colorHexCode,rgb value
+  colorName = body.name.value;
+  colorHexCode = body.hex.value;
+  rgbCode = color;
+  cmykCode = body.cmyk.value;
+  xyzCode = body.XYZ.value;
+
+  // update document with new color
+  document.body.style.background = color;
+  colorNameBox.textContent = ` ${colorName}`;
+  hexCodeBox.textContent = ` ${colorHexCode}`;
+  rgbCodeBox.textContent = ` ${rgbCode}`;
+  cmykCodeBox.textContent = ` ${cmykCode}`;
+  xyzCodeBox.textContent = ` ${xyzCode}`;
+};
+
+// call color change first time on refresh
+changeColor();
+
+//function to change color
+button.addEventListener("click", changeColor);
+
+// show toast message after copy
+let showToast = (color) => {
+  Toastify({
+    text: `${color} copied to clipboard`,
+    className: "info",
+    style: {
+      background: "#2222222a",
+      boxShadow: "0 0 0 0",
+      borderRadius: "2px",
+    },
+  }).showToast();
+};
+
+//add event listners to all the color detail boxes to copy the code
+hexCodeBox.addEventListener("click", () => {
+  navigator.clipboard.writeText(colorHexCode);
+  showToast(colorHexCode);
+});
+rgbCodeBox.addEventListener("click", () => {
+  navigator.clipboard.writeText(rgbCode);
+  showToast(rgbCode);
+});
+cmykCodeBox.addEventListener("click", () => {
+  navigator.clipboard.writeText(cmykCode);
+  showToast(cmykCode);
+});
+xyzCodeBox.addEventListener("click", () => {
+  navigator.clipboard.writeText(xyzCode);
+  showToast(xyzCode);
+});
